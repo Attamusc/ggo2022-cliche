@@ -1,0 +1,14 @@
+{
+  "indentation": {
+    "character": "tab"
+  },
+  "whitespace": {
+    "colonPolicy": "onlyAfter",
+    "caseColonPolicy": "onlyAfter",
+    "objectFieldColonPolicy": "onlyAfter",
+    "typeHintColonPolicy": "onlyAfter",
+    "typeCheckColonPolicy": "onlyAfter",
+    "ternaryPolicy": "onlyAfter",
+    "arrowFunctionsPolicy": "around"
+  }
+}
