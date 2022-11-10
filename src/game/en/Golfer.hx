@@ -9,6 +9,9 @@ class Golfer extends Entity {
 	var rotationSpeed: Float = 0.5;
 
 	// var mousePosition: Vector2;
+	public function angToMouse(?offX = 0, ?offY = 0) {
+		return Math.atan2(App.ME.mouseY - centerY + offY, App.ME.mouseX - centerX + offX);
+	}
 
 	public function new() {
 		super(5, 5);
@@ -40,12 +43,19 @@ class Golfer extends Entity {
 		super.preUpdate();
 	}
 
-	override function fixedUpdate() {
-		super.fixedUpdate();
+	override function postUpdate() {
+		super.postUpdate();
 
 		// keyboard-based character rotation
 		if (ca.getAnalogDist2(MoveLeft, MoveRight) > 0) {
 			spr.rotate(ca.getAnalogValue2(MoveLeft, MoveRight) * rotationSpeed);
+		}
+
+		var facingAngle = angToMouse();
+		spr.rotation = facingAngle;
+
+		if (ca.isPressed(Swing)) {
+			new Ball(M.round(centerX), M.round(centerY), facingAngle);
 		}
 	}
 }

@@ -16,6 +16,18 @@ class App extends dn.Process {
 	/** If TRUE, game is paused, and a Contrast filter is applied **/
 	public var screenshotMode(default, null) = false;
 
+	public var mouseX(get, never): Float;
+
+	inline function get_mouseX(): Float {
+		return (scene.mouseX - Game.ME.scroller.x) / Const.SCALE;
+	}
+
+	public var mouseY(get, never): Float;
+
+	inline function get_mouseY(): Float {
+		return (scene.mouseY - Game.ME.scroller.y) / Const.SCALE;
+	}
+
 	public function new(s: h2d.Scene) {
 		super();
 		ME = this;
@@ -227,7 +239,7 @@ class App extends dn.Process {
 
 		// Gamepad bindings
 		controller.bindPadLStick4(MoveLeft, MoveRight, MoveUp, MoveDown);
-		controller.bindPad(Jump, A);
+		controller.bindPad(Swing, A);
 		controller.bindPad(Restart, SELECT);
 		controller.bindPad(Pause, START);
 		controller.bindPad(MoveLeft, DPAD_LEFT);
@@ -245,7 +257,7 @@ class App extends dn.Process {
 		controller.bindKeyboard(MoveRight, [K.RIGHT, K.D]);
 		controller.bindKeyboard(MoveUp, [K.UP, K.Z, K.W]);
 		controller.bindKeyboard(MoveDown, [K.DOWN, K.S]);
-		controller.bindKeyboard(Jump, K.SPACE);
+		controller.bindKeyboard(Swing, [K.SPACE, K.MOUSE_LEFT]);
 		controller.bindKeyboard(Restart, K.R);
 		controller.bindKeyboard(ScreenshotMode, K.F9);
 		controller.bindKeyboard(Pause, K.P);
