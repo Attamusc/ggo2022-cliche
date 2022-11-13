@@ -897,12 +897,27 @@ class Entity {
 	/** Called at the beginning of each Y movement step **/
 	function onPreStepY() {}
 
+	/** Called when an entity enters within the touch distance of another **/
+	function onTouchEntity(e: Entity) {}
+
 	/**
 		Main loop, but it only runs at a "guaranteed" 30 fps (so it might not be called during some frames, if the app runs at 60fps). This is usually where most gameplay elements affecting physics should occur, to ensure these will not depend on FPS at all.
 	**/
 	public function fixedUpdate() {
 		updateLastFixedUpdatePos();
 
+		var d = 0.0;
+
+		for (e in ALL) {
+			if (e == this || !e.isAlive()) {
+				continue;
+			}
+
+			d = M.dist(attachX, attachY, e.attachX, e.attachY);
+			if (d < Const.GRID) {
+				onTouchEntity(e);
+			}
+		}
 		/*
 			Stepping: any movement greater than 33% of grid size (ie. 0.33) will increase the number of `steps` here. These steps will break down the full movement into smaller iterations to avoid jumping over grid collisions.
 		 */

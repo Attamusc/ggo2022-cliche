@@ -5,16 +5,17 @@ import h2d.col.RoundRect;
 
 class Golfer extends Entity {
 	var ca: ControllerAccess<GameAction>;
+	var currentBall: Ball;
 
 	var rotationSpeed: Float = 0.5;
 
-	// var mousePosition: Vector2;
 	public function angToMouse(?offX = 0, ?offY = 0) {
 		return Math.atan2(App.ME.mouseY - centerY + offY, App.ME.mouseX - centerX + offX);
 	}
 
 	public function new() {
-		super(5, 5);
+		super(0, 0);
+		setPivots(0.5);
 
 		// Starting point using level entity "PlayerStart"
 		var start = level.data.l_Entities.all_PlayerStart[0];
@@ -55,7 +56,12 @@ class Golfer extends Entity {
 		spr.rotation = facingAngle;
 
 		if (ca.isPressed(Swing)) {
-			new Ball(M.round(centerX), M.round(centerY), facingAngle);
+			if (currentBall != null) {
+				currentBall.destroy();
+				currentBall = null;
+			}
+
+			currentBall = new Ball(M.round(centerX), M.round(centerY), facingAngle);
 		}
 	}
 }

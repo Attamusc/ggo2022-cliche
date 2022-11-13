@@ -68,6 +68,7 @@ class Game extends AppChildProcess {
 		level = new Level(l);
 
 		var player = new Golfer();
+		var goal = new Goal();
 
 		camera.centerOnTarget();
 		hud.onLevelStart();
