@@ -1,0 +1,20 @@
+
+entities.png
+size: 256, 128
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+ball
+  rotate: false
+  xy: 104, 78
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+hero_idle
+  rotate: false
+  xy: 2, 2
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1

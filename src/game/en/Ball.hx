@@ -1,7 +1,7 @@
 package en;
 
 class Ball extends Entity {
-	var speed: Float = 2.;
+	var speed: Float = 0.8;
 
 	public function new(x: Int, y: Int, angle: Float) {
 		super(0, 0);
@@ -9,16 +9,21 @@ class Ball extends Entity {
 		setPosPixel(x, y);
 		setPivots(0.5);
 
+		wid = Const.GRID / 2;
+		hei = Const.GRID / 2;
+
 		var xSpeed = Math.cos(angle) * speed;
 		var ySpeed = Math.sin(angle) * speed;
 
 		v.dx = xSpeed;
 		v.dy = ySpeed;
-
 		v.setFricts(0.98, 0.98);
 
-		var b = new h2d.Bitmap(h2d.Tile.fromColor(Red, M.round(iwid / 2), M.round(ihei / 2)), spr);
-		b.tile.setCenterRatio(x, y);
+		spr.set(Assets.entities);
+		spr.setCenterRatio(0.5, 0.5);
+		spr.setScale(0.25);
+
+		spr.anim.registerStateAnim("ball", 0, 1.0);
 	}
 
 	override function onPreStepX() {

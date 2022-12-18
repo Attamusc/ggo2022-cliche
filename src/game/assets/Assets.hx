@@ -1,6 +1,7 @@
 package assets;
 
 import dn.heaps.slib.*;
+import dn.heaps.assets.Atlas;
 
 /**
 	This class centralizes all assets management (ie. art, sounds, fonts etc.)
@@ -10,8 +11,14 @@ class Assets {
 	public static var fontPixel: h2d.Font;
 	public static var fontPixelMono: h2d.Font;
 
-	/** Main atlas **/
+	/** Tiles atlas **/
 	public static var tiles: SpriteLib;
+
+	/** Course tiles atlas */
+	public static var courseTiles: SpriteLib;
+
+	/** Entity atlas **/
+	public static var entities: SpriteLib;
 
 	/** LDtk world data **/
 	public static var worldData: World;
@@ -29,8 +36,13 @@ class Assets {
 
 		// build sprite atlas directly from Aseprite file
 		tiles = dn.heaps.assets.Aseprite.convertToSLib(Const.FPS, hxd.Res.atlas.tiles.toAseprite());
+		courseTiles = Atlas.load("atlas/course-tiles.atlas");
+
+		// build sprite atlas directly from atlas file(s)
+		entities = Atlas.load("atlas/entities.atlas");
 
 		// Hot-reloading of CastleDB
+
 		#if debug
 		hxd.Res.data.watch(function() {
 			// Only reload actual updated file from disk after a short delay, to avoid reading a file being written

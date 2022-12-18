@@ -15,6 +15,8 @@ class Level extends GameChildProcess {
 	public var marks: dn.MarkerMap<LevelMark>;
 
 	var tilesetSource: h2d.Tile;
+	var courseTilesetSource: h2d.Tile;
+
 	var invalidated = true;
 
 	public function new(ldtkLevel: World.World_Level) {
@@ -27,6 +29,7 @@ class Level extends GameChildProcess {
 		pxWid = cWid * Const.GRID;
 		pxHei = cHei * Const.GRID;
 		tilesetSource = hxd.Res.levels.sampleWorldTiles.toAseprite().toTile();
+		courseTilesetSource = Assets.courseTiles.tile;
 
 		markCollisions();
 	}
@@ -73,12 +76,16 @@ class Level extends GameChildProcess {
 	function render() {
 		root.removeChildren();
 
-		var tg = new h2d.TileGroup(tilesetSource, root);
+		var collisionTG = new h2d.TileGroup(courseTilesetSource, root);
+		var courseTG = new h2d.TileGroup(courseTilesetSource, root);
 
-		var layer = data.l_Collisions;
-		for (autoTile in layer.autoTiles) {
-			var tile = layer.tileset.getAutoLayerTile(autoTile);
-			tg.add(autoTile.renderX, autoTile.renderY, tile);
+		var course = data.l_Course;
+		course.render(courseTG);
+
+		var collisions = data.l_Collisions;
+		for (autoTile in collisions.autoTiles) {
+			var tile = collisions.tileset.getAutoLayerTile(autoTile);
+			collisionTG.add(autoTile.renderX, autoTile.renderY, tile);
 		}
 	}
 

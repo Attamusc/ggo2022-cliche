@@ -914,7 +914,7 @@ class Entity {
 			}
 
 			d = M.dist(attachX, attachY, e.attachX, e.attachY);
-			if (d < Const.GRID) {
+			if (d < Const.GRID / 2) {
 				onTouchEntity(e);
 			}
 		}

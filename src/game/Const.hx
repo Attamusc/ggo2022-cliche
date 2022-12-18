@@ -15,7 +15,7 @@ class Const {
 	public static final FIXED_UPDATE_FPS = 30;
 
 	/** Grid size in pixels **/
-	public static final GRID = 16;
+	public static final GRID = 48;
 
 	/** "Infinite", sort-of. More like a "big number" **/
 	public static final INFINITE: Int = 0xfffFfff;
@@ -27,12 +27,15 @@ class Const {
 		return _nextUniqueId++;
 	}
 
+	static final _targetScaleWidth = 1280;
+	static final _targetScaleHeight = 768;
+
 	/** Viewport scaling **/
-	public static var SCALE(get, never): Int;
+	public static var SCALE(get, never): Float;
 
 	static inline function get_SCALE() {
 		// can be replaced with another way to determine the game scaling
-		return dn.heaps.Scaler.bestFit_i(1000, 600);
+		return dn.heaps.Scaler.bestFit_f(_targetScaleWidth, _targetScaleHeight);
 	}
 
 	/** Specific scaling for top UI elements **/

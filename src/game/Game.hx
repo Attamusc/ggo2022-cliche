@@ -1,3 +1,5 @@
+import h2d.filter.ColorMatrix;
+
 class Game extends AppChildProcess {
 	public static var ME: Game;
 
@@ -35,7 +37,7 @@ class Game extends AppChildProcess {
 
 		scroller = new h2d.Layers();
 		root.add(scroller, Const.DP_BG);
-		scroller.filter = new h2d.filter.Nothing(); // force rendering for pixel perfect
+		scroller.filter = new h2d.filter.ColorMatrix(); // force rendering for pixel perfect
 
 		fx = new Fx();
 		hud = new ui.Hud();
@@ -93,6 +95,7 @@ class Game extends AppChildProcess {
 	/** Window/app resize event **/
 	override function onResize() {
 		super.onResize();
+		scroller.setScale(Const.SCALE);
 	}
 
 	/** Garbage collect any Entity marked for destruction. This is normally done at the end of the frame, but you can call it manually if you want to make sure marked entities are disposed right away, and removed from lists. **/
